@@ -6,44 +6,19 @@
           <img class="logo" src="../assets/logo.png" alt="load fail" />
         </div>
         <div class="nav-bar">
-          <el-button type="primary">GitHub</el-button>
-          <el-button type="primary">Blog</el-button>
-          <el-button type="primary">Resume</el-button>
-          <el-button type="primary">Contact</el-button>
+          <el-link class="header-link" type="primary" @click="goToHeadView()"
+            >首页</el-link
+          >
+          <el-link type="primary" @click="goToGithub()" class="header-link"
+            >GitHub</el-link
+          >
+          <el-link class="header-link" type="primary">Blog</el-link>
+          <el-link class="header-link" type="primary">Resume</el-link>
+          <el-link class="header-link" type="primary">Contact</el-link>
         </div>
       </div>
       <div class="container">
-        <el-container>
-          <el-card class="person-card">
-            <div class="introduction">
-              <img
-                  class="person-avatar"
-                  src="../assets/girl.png"
-                  alt="load fail"
-              />
-              <div>
-                <h2 id="my-name">优木同学</h2>
-                <p>这是一个自己的描述</p>
-                <p>长亭外，古道边，斜风微雨，芳草碧连天，草间莺飞燕舞，</p>
-              </div>
-            </div>
-          </el-card>
-        </el-container>
-
-        <el-container>
-          <div class="project-list">
-            <!-- 这里列出做的项目的展示 -->
-            <div class="project-item" @click="goToProject">
-              <el-card class="project-card">
-                <p>项目名称</p>
-                <a>项目链接</a>
-                <p>项目的简单介绍</p>
-              </el-card>
-            </div>
-
-          </div>
-        </el-container>
-        <div class="footer"></div>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -53,106 +28,82 @@
 export default {
   name: "HeadView",
   methods: {
-    goToProject(){
-      console.log("go to project")
-      this.$router.push('/project')
-    }
-  }
+    goToProject() {
+      console.log("go to project");
+      this.$router.push("/project");
+    },
+    goToGithub() {
+      console.log("go to github");
+      window.open("https://github.com/GrabTiming");
+    },
+    goToHeadView() {
+      this.$router.push("/info");
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-.logo{
+.logo {
   width: 45px;
   height: 45px;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
-.logo-box{
+.logo-box {
   width: 25%;
 }
 
-.nav-bar{
+.nav-bar {
   width: 75%;
 }
 
-.header{
+.header {
+  position: fixed; /* 固定定位 */
+  top: 0; /* 固定在顶部 */
+  left: 0;
+  right: 0;
   height: 50px;
   display: flex;
-  background-color: red;
+  background-color: rgba(245, 245, 245, 0.8); /* 半透明灰白色 */
+  backdrop-filter: blur(10px); /* 添加模糊效果使半透明背景更美观 */
   align-items: center;
   justify-content: space-between;
+  z-index: 1000; /* 确保导航栏在最上层 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 
-
-.wrapper{
+.wrapper {
   height: 100%;
   width: 100%;
-  background-color: aquamarine;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* 添加背景图片 */
+  background-image: url("https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
-.main-container{
+.main-container {
   height: 100%;
   width: 80%;
-  background-color: blueviolet;
+  background-color: aqua;
 }
 
-.container{
-  height: 100%;
+.container {
+  /* 为固定导航栏留出空间，避免内容被遮挡 */
+  margin-top: 50px;
+  height: calc(100% - 50px);
   width: 100%;
 }
 
-#my-name{
+.header-link {
+  padding: 10px;
+  margin-left: 20px;
   font-size: 20px;
-  color: red;
 }
-
-.person-card{
-  width: 80% ;
-  margin: 10px auto;
-  border-radius: 10px;
-}
-
-.introduction{
-  display: flex;
-}
-
-.person-avatar {
-  width: 300px;
-  height: 600px;
-  margin-right: 20px;
-}
-
-.project-list{
-  width: 80%;
-  margin: 10px auto;
-}
-
-.project-item{
-  width: 100%;
-}
-
-.project-item:hover{
-  cursor: pointer;
-}
-
-.project-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 使用缓动函数 */
-  border: 1px solid #ebeef5;
-}
-
-.project-card:hover {
-  border-color: #409eff;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px); /* 悬浮提升效果 */
-}
-
-
-
-
 </style>
